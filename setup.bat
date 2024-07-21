@@ -67,7 +67,7 @@ IF NOT "%result%" == "" echo Container appears to be still running after initial
 :: --- Save logs to local file
 :: -----------------------------------------------------------------
 echo Capturing container logs to file
-mkdir Logs
+mkdir "%CWD%\Logs"
 For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mydate=%%c-%%a-%%b)
 For /f "tokens=1-2 delims=/:" %%a in ("%TIME%") do (set mytime=%%a-%%b)
 docker logs -f "%NAME%" > "%CWD%\Logs\%NAME%_%mydate%_%mytime%.log" 2>&1
