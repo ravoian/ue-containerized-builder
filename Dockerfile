@@ -68,17 +68,17 @@ RUN wmic pagefileset where name="C:\\pagefile.sys" set InitialSize=102400,Maximu
 ####################################
 #       Setup graphics API
 ####################################
-RUN echo powershell -ExecutionPolicy Bypass -file "C:\Setup\enable-graphics-apis.ps1" >> c:\startup.bat
+RUN echo powershell -ExecutionPolicy Bypass -file "C:\Setup\enable-graphics-apis.ps1" >> C:\Setup\startup.bat
 
 
 ####################################
 #       Setup Unreal 
 ####################################
 RUN choco install git -y
-RUN echo git clone --branch 5.1 --depth=1 https://%GIT_USER%:%GIT_TOKEN%@github.com/EpicGames/UnrealEngine.git C:\UnrealEngine >> c:\startup.bat
-RUN echo call C:\UnrealEngine\Setup.bat >> c:\startup.bat
-RUN echo robocopy /e C:\Setup\%PROJECT_NAME% C:\UnrealEngine\%PROJECT_NAME% >> c:\startup.bat
-RUN echo call C:\UnrealEngine\GenerateProjectFiles.bat >> c:\startup.bat
+RUN echo git clone --branch 5.1 --depth=1 https://%GIT_USER%:%GIT_TOKEN%@github.com/EpicGames/UnrealEngine.git C:\UnrealEngine >> C:\Setup\startup.bat
+RUN echo call C:\UnrealEngine\Setup.bat >> C:\Setup\startup.bat
+RUN echo robocopy /e C:\Setup\%PROJECT_NAME% C:\UnrealEngine\%PROJECT_NAME% >> C:\Setup\startup.bat
+RUN echo call C:\UnrealEngine\GenerateProjectFiles.bat >> C:\Setup\startup.bat
 
 
 ####################################
@@ -95,13 +95,13 @@ ENV NDKROOT="C:\Users\ContainerAdministrator\AppData\Local\Android\Sdk\ndk\21.4.
 ####################################
 #       Build Unreal 
 ####################################
-RUN echo C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe %PROJECT_NAME%Editor Win64 Development >> c:\startup.bat
-RUN echo C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe ShaderCompileWorker Win64 Development >> c:\startup.bat
-RUN echo call C:\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat BuildCookRun -nop4 -project=%PROJECT_NAME% -targetplatform=Android -clientconfig=Development -build -compile -cook -stage -archive -package -pak -compressed -iostore -prereqs -manifests -allmaps -unattended -buildmachine -cookFlavor=ASTC -archivedirectory=C:/Builds/ >> c:\startup.bat
+RUN echo C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe %PROJECT_NAME%Editor Win64 Development >> C:\Setup\startup.bat
+RUN echo C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe ShaderCompileWorker Win64 Development >> C:\Setup\startup.bat
+RUN echo call C:\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat BuildCookRun -nop4 -project=%PROJECT_NAME% -targetplatform=Android -clientconfig=Development -build -compile -cook -stage -archive -package -pak -compressed -iostore -prereqs -manifests -allmaps -unattended -buildmachine -cookFlavor=ASTC -archivedirectory=C:/Builds/ >> C:\Setup\startup.bat
 
 
 ####################################
 #       Run the app
 ####################################
 RUN echo ping -t localhost ^>^> C:\pulse.txt  >> C:\Setup\startup.bat
-CMD ["c:\\startup.bat"]
+CMD ["c:\\Setup\\startup.bat"]
