@@ -38,7 +38,7 @@ IF "%result%" == "" echo Container %NAME% is not running
 :: --- Build the Docker image file using the latest source files
 :: -----------------------------------------------------------------
 echo Building %NAME%
-docker build -t %NAME% -f nginx.Dockerfile .
+docker build -t %NAME% -f Dockerfile .
 if %ERRORLEVEL% NEQ 0 echo Error building Dockerfile 1>&2 && @pause
 
 
