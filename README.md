@@ -6,7 +6,7 @@ Sample container setup for running Windows Server to test building Unreal editor
 
 1. Clone or download this repository [Repository | GitLab](https://docs.gitlab.com/ee/user/project/repository/)
 
-2. Download Docker Desktop [App Tools - Android Developers](https://docs.docker.com/get-docker/)
+2. Install Docker Desktop [Get Docker](https://docs.docker.com/get-docker/)
 
 3. Ensure Docker Desktop is configured to run Windows containers
 
